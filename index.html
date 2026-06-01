@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#06070b" />
+<link rel="stylesheet" href="./css/style.css">
+<title>21 Days Challenge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"></div>
+  <div class="bg-noise" aria-hidden="true"></div>
+
+  <div class="demo-banner" id="demo-banner">DEMO MODE · Storage in memory only</div>
+
+  <header class="hud">
+    <div class="hud__brand">
+
+      <!-- <div class="hud__logo">
+        <svg viewBox="0 0 32 32" fill="none"><path d="M4 4h24v24H4z" stroke="currentColor" stroke-width="1.5"/><path d="M10 10v8c0 1.5 1 2.5 2.5 2.5S15 19.5 15 18v-8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M17 18.5c.5 1.3 1.7 2 3.2 2 1.7 0 2.8-.8 2.8-2 0-2.7-5.5-1.8-5.5-4.5 0-1.2 1.1-2 2.7-2 1.4 0 2.4.6 2.9 1.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </div>
+      <div class="hud__title">
+        <span class="hud__name">JS<span class="hud__accent">21</span></span> -->
+        <div class="challenge-name-wrapper">
+
+  <input
+    type="text"
+    id="challenge-name-input"
+    placeholder="Enter your challenge name"
+  >
+  <button class="btn btn--primary"  id="save-challenge-name">Save</button>
+</div> <h1 id="challenge-title" style="display:none;"></h1>
+<button
+  class="btn btn--ghost"
+  id="edit-challenge-btn"
+  style="display:none;"
+>
+  Edit
+</button>
+      </div>
+    </div>
+    <div class="hud__stats">
+      <div class="stat"><span class="stat__label">Streak</span><span class="stat__value" id="stat-streak">0<span class="stat__unit">/21</span></span></div>
+      <div class="stat"><span class="stat__label">XP</span><span class="stat__value" id="stat-xp">0</span></div>
+      <div class="stat"><span class="stat__label">Resets</span><span class="stat__value" id="stat-resets">0</span></div>
+    </div>
+    <div class="hud__actions">
+      <button class="btn btn--ghost" id="btn-export">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <span>Export</span>
+      </button>
+      <button class="btn btn--ghost btn--danger" id="btn-reset">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+        <span>Reset</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="status-panel">
+      <div class="status-panel__left">
+        <div class="status-line">
+          <span class="status-line__dot" id="status-dot"></span>
+          <span class="status-line__label" id="status-label">Ready to Begin</span>
+        </div>
+        <h1 class="status-message" id="status-message">Day 1 awaits. Click the first node to start your streak.</h1>
+        <p class="status-quote" id="status-quote">"The expert in anything was once a beginner."</p>
+      </div>
+      <div class="status-panel__right">
+        <div class="countdown" id="countdown-wrap">
+          <span class="countdown__label" id="countdown-label">No active timer</span>
+          <div class="countdown__time">
+            <span class="countdown__seg"><span class="countdown__num" id="cd-h">00</span><span class="countdown__unit">H</span></span>
+            <span class="countdown__sep">:</span>
+            <span class="countdown__seg"><span class="countdown__num" id="cd-m">00</span><span class="countdown__unit">M</span></span>
+            <span class="countdown__sep">:</span>
+            <span class="countdown__seg"><span class="countdown__num" id="cd-s">00</span><span class="countdown__unit">S</span></span>
+          </div>
+        </div>
+        <div class="progress">
+          <div class="progress__bar"><div class="progress__fill" id="progress-fill"></div></div>
+          <div class="progress__meta">
+            <span id="progress-pct">0%</span>
+            <span id="progress-frac">0 of 21</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid-section">
+      <div class="section-head">
+        <h2 class="section-title">Challenge Nodes</h2>
+        <div class="section-legend">
+          <span class="legend"><span class="legend__dot legend__dot--locked"></span>Locked</span>
+          <span class="legend"><span class="legend__dot legend__dot--active"></span>Active</span>
+          <span class="legend"><span class="legend__dot legend__dot--done"></span>Completed</span>
+        </div>
+      </div>
+      <div class="grid" id="challenge-grid" role="list"></div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span>Built for deep focus · Miss one day, lose it all</span>
+    <span class="foot__sep">·</span>
+    <span id="foot-time">--:--:--</span>
+  </footer>
+
+  <!-- Entry modal -->
+  <div class="modal" id="entry-modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal__backdrop" data-close></div>
+    <div class="modal__panel">
+      <header class="modal__head">
+        <div>
+          <span class="modal__eyebrow" id="entry-eyebrow">DAY 01 · NODE</span>
+          <h3 class="modal__title" id="entry-title">Log today's learning</h3>
+        </div>
+        <button class="icon-btn" data-close aria-label="Close">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </header>
+      <div class="modal__body">
+        <label class="field">
+          <span class="field__label">What did you learn today?</span>
+          <input type="text" id="entry-topic" class="input" placeholder="e.g. Closures and lexical scope" maxlength="120" autocomplete="off" />
+        </label>
+        <label class="field">
+          <span class="field__label">Time spent learning</span>
+          <div class="input-row">
+            <input type="number" id="entry-hours" class="input input--num" placeholder="1.5" min="0" max="24" step="0.25" />
+            <span class="input-row__suffix">hours</span>
+          </div>
+        </label>
+        <label class="field">
+          <span class="field__label">Notes or summary</span>
+          <textarea id="entry-notes" class="input input--textarea" placeholder="Key insights, code snippets, links, anything you want to remember..." maxlength="2000" rows="5"></textarea>
+        </label>
+      </div>
+      <footer class="modal__foot">
+        <button class="btn btn--ghost" data-close>Cancel</button>
+        <button class="btn btn--primary" id="entry-submit">
+          <span>Lock In</span>
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </button>
+      </footer>
+    </div>
+  </div>
+
+  <!-- View modal -->
+  <div class="modal" id="view-modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal__backdrop" data-close></div>
+    <div class="modal__panel">
+      <header class="modal__head">
+        <div>
+          <span class="modal__eyebrow" id="view-eyebrow">DAY 01 · COMPLETED</span>
+          <h3 class="modal__title" id="view-title">—</h3>
+        </div>
+        <button class="icon-btn" data-close aria-label="Close">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </header>
+      <div class="modal__body">
+        <div class="view-row"><span class="view-row__label">Time spent</span><span class="view-row__val" id="view-hours">—</span></div>
+        <div class="view-row"><span class="view-row__label">Completed at</span><span class="view-row__val" id="view-when">—</span></div>
+        <div class="view-notes"><span class="view-row__label">Notes</span><p id="view-notes">—</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reset alert -->
+  <div class="alert" id="reset-alert" aria-hidden="true">
+    <div class="alert__panel">
+      <div class="alert__icon">
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      </div>
+      <h3 class="alert__title">Streak Broken</h3>
+      <p class="alert__body" id="alert-body">You missed your 24-hour window. The challenge resets to Day 1.</p>
+      <button class="btn btn--primary" id="alert-ack">Start Over</button>
+    </div>
+  </div>
+
+  <!-- Victory -->
+  <div class="victory" id="victory" aria-hidden="true">
+    <canvas id="confetti-canvas"></canvas>
+    <div class="victory__card">
+      <span class="victory__eyebrow">CHALLENGE COMPLETE</span>
+      <h2 class="victory__title">21 Days. No Misses.</h2>
+      <p class="victory__body">You showed up every single day. That's the whole game. Export your journal and keep going.</p>
+      <div class="victory__actions">
+        <button class="btn btn--ghost" id="victory-export">Export Journal</button>
+        <button class="btn btn--primary" id="victory-close">Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" aria-live="polite"></div>
+
+  <script src="./js/script.js"></script>
+  
+</body>
+</html>
