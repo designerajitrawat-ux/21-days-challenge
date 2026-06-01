@@ -15,6 +15,7 @@
   const XP_PER_DAY = 100;
   const XP_BONUS_FINISH = 500;
   const STORAGE_KEY = 'js21_challenge_state_v1';
+  const API_URL = "https://two1-days-challenge.onrender.com";
  
   function getDeviceId() {
   let deviceId = localStorage.getItem("deviceId");
@@ -154,7 +155,7 @@
     state.firstStartedAt = firstStartedAt;
     saveState();
     fetch(
-  `http://localhost:5000/api/challenges/${getDeviceId()}`,
+  `${API_URL}/api/challenges/${getDeviceId()}`,
   {
     method: "DELETE"
   }
@@ -378,7 +379,7 @@
       return;
     }
     const ok = completeCurrentDay({ topic, hours, notes });
-    fetch("http://localhost:5000/api/challenges", {
+    fetch(`${API_URL}/api/challenges`, {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
@@ -554,7 +555,7 @@
       if (confirm(confirmMsg)) {
 
   fetch(
-    `http://localhost:5000/api/challenges/${getDeviceId()}`,
+    `${API_URL}/api/challenges/${getDeviceId()}`,
     {
       method: "DELETE"
     }
@@ -609,7 +610,7 @@
 async function loadChallengesFromMongoDB() {
   try {
     const response = await fetch(
-  `http://localhost:5000/api/challenges/${getDeviceId()}`
+  `${API_URL}/api/challenges/${getDeviceId()}`
 );
 
     const data = await response.json();
